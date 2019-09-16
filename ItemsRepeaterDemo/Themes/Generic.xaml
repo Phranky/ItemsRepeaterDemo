@@ -1,0 +1,111 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local_controls="using:ItemsRepeaterDemo.Controls"
+    xmlns:microsoft_ui_controls="using:Microsoft.UI.Xaml.Controls">
+
+    <Style TargetType="local_controls:TopListControl" >
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="TabNavigation" Value="Local" />
+        <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollMode" Value="Enabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="False" />
+        <Setter Property="ScrollViewer.IsHorizontalScrollChainingEnabled" Value="False" />
+        <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="True" />
+        <Setter Property="ScrollViewer.IsVerticalScrollChainingEnabled" Value="True" />
+        <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
+        <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
+        <Setter Property="ScrollViewer.BringIntoViewOnFocusChange" Value="True" />
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
+        <Setter Property="XYFocusDownNavigationStrategy" Value="RectilinearDistance" />
+        <Setter Property="XYFocusUpNavigationStrategy" Value="RectilinearDistance" />
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Name}" />
+                        <local_controls:SubListControl ItemsSource="{Binding SubItems}" />
+                    </StackPanel>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local_controls:TopListControl">
+                    <Grid x:Name="RootContainer" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <!--<microsoft_ui_controls:ItemsRepeaterScrollHost>-->
+                            <ScrollViewer x:Name="ScrollViewer" TabNavigation="{TemplateBinding TabNavigation}" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}" BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}" AutomationProperties.AccessibilityView="Raw">
+                                <StackPanel x:Name="TopListView_StackPanel">
+                                    <ContentPresenter XYFocusKeyboardNavigation="Enabled" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTransitions="{TemplateBinding HeaderTransitions}" />
+                                    <microsoft_ui_controls:ItemsRepeater x:Name="PART_BucketItemsRepeater"
+                                                                         ItemsSource="{TemplateBinding ItemsSource}"
+                                                                         ItemTemplate="{TemplateBinding ItemTemplate}"
+                                                                         >
+                                        <microsoft_ui_controls:ItemsRepeater.Layout>
+                                            <microsoft_ui_controls:StackLayout Orientation="Vertical" Spacing="8"/>
+                                        </microsoft_ui_controls:ItemsRepeater.Layout>
+                                    </microsoft_ui_controls:ItemsRepeater>
+                                    <ContentPresenter XYFocusKeyboardNavigation="Enabled" Content="{TemplateBinding Footer}" ContentTemplate="{TemplateBinding FooterTemplate}" ContentTransitions="{TemplateBinding FooterTransitions}" />
+                                </StackPanel>
+                            </ScrollViewer>
+                        <!--</microsoft_ui_controls:ItemsRepeaterScrollHost>-->
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local_controls:SubListControl" >
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="TabNavigation" Value="Local" />
+        <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Enabled" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollMode" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="True" />
+        <Setter Property="ScrollViewer.IsHorizontalScrollChainingEnabled" Value="True" />
+        <Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="False" />
+        <Setter Property="ScrollViewer.IsVerticalScrollChainingEnabled" Value="False" />
+        <Setter Property="ScrollViewer.ZoomMode" Value="Disabled" />
+        <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
+        <Setter Property="ScrollViewer.BringIntoViewOnFocusChange" Value="True" />
+        <Setter Property="UseSystemFocusVisuals" Value="True" />
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Button>
+                        <StackPanel Orientation="Vertical" Background="{Binding Color}">
+                            <Grid>
+                                <Image Source="{Binding ImageUrl}" Width="150" Height="150"/>
+                                <TextBlock Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding Index}" Padding="5" Margin="10" />
+                            </Grid>
+                            <TextBlock Text="{Binding Name}" />
+                        </StackPanel>
+                    </Button>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local_controls:SubListControl">
+                    <StackPanel x:Name="RootContainer" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter x:Name="HeaderContentPresenter" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTransitions="{TemplateBinding HeaderTransitions}" />
+                        <!--<microsoft_ui_controls:ItemsRepeaterScrollHost>-->
+                            <ScrollViewer x:Name="ScrollViewer" TabNavigation="{TemplateBinding TabNavigation}" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsHorizontalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsHorizontalScrollChainingEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsVerticalScrollChainingEnabled="{TemplateBinding ScrollViewer.IsVerticalScrollChainingEnabled}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}" BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}" AutomationProperties.AccessibilityView="Raw">
+                                <microsoft_ui_controls:ItemsRepeater x:Name="PART_ContentItemsRepeater"
+                                                                     ItemsSource="{TemplateBinding ItemsSource}"
+                                                                     ItemTemplate="{TemplateBinding ItemTemplate}">
+                                    <microsoft_ui_controls:ItemsRepeater.Layout>
+                                        <microsoft_ui_controls:StackLayout Orientation="Horizontal" Spacing="8"/>
+                                    </microsoft_ui_controls:ItemsRepeater.Layout>
+                                </microsoft_ui_controls:ItemsRepeater>
+                            </ScrollViewer>
+                        <!--</microsoft_ui_controls:ItemsRepeaterScrollHost>-->
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
